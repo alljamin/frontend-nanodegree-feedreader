@@ -111,6 +111,6 @@ $(function() {
         });
 
         it('new feed is loaded by loadFeed function and content actually changes', function(){
-            expect($('.feed').html).not.toBe($('feed').html)
+            expect($('.feed').html).not.toBe($('feed').html);
         });
 }());
