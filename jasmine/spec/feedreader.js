@@ -71,10 +71,10 @@ $(function() {
           */
 
         it('changes visibility when clicked',function(){
-            $('a.menu-icon-link').trigger('click');
+            $('a.menu-icon-link').click();
             expect(document.body.className).not.toContain('menu-hidden');
 
-            $('a.menu-icon-link').trigger('click');
+            $('a.menu-icon-link').click();
             expect(document.body.className).toContain('menu-hidden');
         });
             
@@ -105,12 +105,21 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-        beforeEach(function (done){
-            loadFeed(0, done);
-            loadFeed(1, done);
+
+       var $feed;
+
+        beforeEach(function(done) {
+            loadFeed(1, function() {
+                $feed = $('.feed').text();
+                done();
+            });
         });
 
-        it('new feed is loaded by loadFeed function and content actually changes', function(){
-            expect($('.feed').html).not.toBe($('feed').html);
+        it('content actually changes', function(done) {
+            loadFeed(2, function() {
+                expect($('.feed').text()).not.toBe($feed);
+                done();
+            });
         });
+
 }());
